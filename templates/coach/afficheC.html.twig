@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %} {# Extend your base template #}
+
+{% block title %}
+    Coach List
+{% endblock %}
+
+{% block body %}
+    <h1>List of Coaches</h1>
+
+    {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success">
+            {{ app.session.flashBag.get('success')|first }}
+        </div>
+    {% endif %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>CIN</th>
+                <th>Date Inscription</th>
+                <th>Speciality</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for coach in coaches %}
+                <tr>
+                    <td>{{ coach.id }}</td>
+                    <td>{{ coach.cin }}</td>
+                    <td>{{ coach.dateInscription ? coach.dateInscription|date('Y-m-d') : '' }}</td>
+                    <td>{{ coach.specialite }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">No coaches found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('add_coach') }}">Add a new Coach</a> {# Link to add a new coach #}
+{% endblock %}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Author List</title>
+    <style>
+        /* Base styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #E5D9F2;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column; /* Align items in column */
+        }
+
+        h1 {
+            color: #A594F9;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        li {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+            width: 250px;
+            transition: transform 0.3s;
+        }
+
+        li:hover {
+            transform: translateY(-10px);
+        }
+
+        img {
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin: 5px 0;
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        p:first-of-type {
+            font-weight: bold;
+            color: #A594F9;
+        }
+
+        /* Styles for the button */
+        .btn {
+            background-color: #A594F9;
+            color: white;
+            border: none;
+            border-radius: 3px; /* Reduced border radius */
+            padding: 5px 10px; /* Smaller padding */
+            font-size: 0.9rem; /* Smaller font size */
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #E5D9F2;
+            color: #A594F9;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>List of Authors</h1>
+        <!-- n est pas declarer  -->
+        {% if authors is defined and authors|length > 0 %}
+            <p class="total">Click the button below  the know more Details  </p>
+
+            {% set totalBooks = 0 %}
+         <ul>
+    {% for author in authors %}
+        <li>
+            <a href="{{ path('author_details', { 'id': author.id }) }}">
+                <img src="{{ asset(author.picture) }}" alt="{{ author.username }}" width="100" height="100">
+                <p>Author Name: {{ author.username|upper }}</p>
+                <p>Contact Email: {{ author.email }}</p>
+                <p>Total Books Written: {{ author.nbBooks }}</p>
+            </a>
+        </li>
+        {% set totalBooks = totalBooks + author.nbBooks %}
+    {% endfor %}
+</ul>
+
+           
+
+            <button class="btn" onclick="showCounts()">Click me !!!</button>
+          <p id="counts" style="display: none;" class="total"></p>
+
+
+
+        {% else %}
+            <p class="no-authors"> No authors available at the moment.</p>
+        {% endif %}
+    </div>
+
+    <script>
+       function showCounts() {
+            // Get the total number of authors and books from Twig variables
+            const totalAuthors = {{ authors|length }};
+            const totalBooks = {{ totalBooks }};
+
+            // Display the counts in the counts paragraph
+            document.getElementById('counts').innerText = `Total Authors: ${totalAuthors}, Total Books: ${totalBooks}`;
+            document.getElementById('counts').style.display = 'block'; // Make it visible
+            countsParagraph.className = 'total'; // Add the class 'total'
+            countsParagraph.style.display = 'block'; // Make it visible
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Coach{% endblock %}
+
+{% block body %}
+    <h1>Add Coach</h1>
+
+    {% if app.session.flashBag.has('error') %}
+        <div class="alert alert-danger">
+            {{ app.session.flashBag.get('error')|first }}
+        </div>
+    {% endif %}
+
+    {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success">
+            {{ app.session.flashBag.get('success')|first }}
+        </div>
+    {% endif %}
+
+    {{ form_start(f) }} {# Ensure the form variable 'f' is used here #}
+        {{ form_widget(f) }} {# This will render all fields in the form #}
+        <button type="submit">Submit</button>
+    {{ form_end(f) }} {# Ensure to end the form correctly #}
+{% endblock %}

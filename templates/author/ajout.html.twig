@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Author{% endblock %}
+
+{% block body %}
+    <h1>Add Author</h1>
+
+    {{ form_start(f) }}
+        {{ form_widget(f) }}
+        <button type="submit">Submit</button>
+    {{ form_end(f) }}
+{% endblock %}

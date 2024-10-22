@@ -1,0 +1,28 @@
+<table>
+
+
+<tr>
+<td>ID</td>
+<td>Cin</td>
+<td>dateInscription</td>
+<td>specialite</td>
+</tr>
+
+
+
+{% for coach in authors %}
+    <tr>
+    <th>{{coach.id}}</th>
+    <th>{{coach.Cin}}</th>
+    <th>{{coach.specialite}}</th>
+<!-- Ajout d'un texte pour le lien d'édition -->
+<td><a href="{{ path('edit', {'id': coach.id}) }}">Edit</a></td>
+<td><a href="{{ path('remove', {'id': coach.id}) }}">Remove</a></td>
+    
+    </tr>
+
+{% endfor %}
+
+
+
+</table>
